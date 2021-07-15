@@ -3,8 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TextSection extends StatelessWidget {
-  bool isChecked = false;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,8 +27,12 @@ class TextSection extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget CustomCheckBox() {
+class CustomCheckBox extends StatelessWidget {
+  bool isChecked = false;
+  @override
+  Widget build(BuildContext context) {
     return Transform.scale(
       scale: 1.3,
       child: Checkbox(
