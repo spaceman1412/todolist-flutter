@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../widgets/text_section.dart';
 import '../widgets/data.dart';
 
@@ -21,38 +22,53 @@ class AddNoteScreen extends StatelessWidget {
 }
 
 class textBox extends StatelessWidget {
-  int initialID = 0;
+  static final _formKey = GlobalKey<FormState>();
+  static String value = '';
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: TextField(
-      decoration: InputDecoration(
-          hintText: "Insert your note",
-          filled: true,
-          fillColor: Colors.transparent,
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide.none,
-          )),
-      scrollPadding: EdgeInsets.all(10.0),
-      autofocus: true,
-      keyboardType: TextInputType.multiline,
-      maxLines: null,
-      textInputAction: TextInputAction.done,
-      onSubmitted: (String value) {
-        Data.getNote(initialID, value);
-        initialID++;
-      },
-    ));
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: <Widget>[
+            TextFormField(
+              // The validator receives the text that the user has entered.
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+              decoration: InputDecoration(
+                hintText: "Insert your note",
+                filled: true,
+                fillColor: Colors.transparent,
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+              scrollPadding: EdgeInsets.all(10.0),
+              autofocus: true,
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
+              textInputAction: TextInputAction.done,
+              onChanged: (text) {
+                value = text;
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
 class btnEdit extends StatelessWidget {
-  const btnEdit({
-    Key? key,
-  }) : super(key: key);
-
+  final _formKey = textBox._formKey;
+  String value = textBox.value;
+  int initialID = 0;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -71,7 +87,13 @@ class btnEdit extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(314, 55, 16, 0),
           child: GestureDetector(
             onTap: () {
-              print('Tapped');
+              if (_formKey.currentState!.validate()) {
+                // If the form is valid, display a snackbar. In the real world,
+                // you'd often call a server or save the information in a database.
+                print(value);
+                Data.getNote(initialID, value);
+                initialID++;
+              }
             },
             child: Text(
               'Done',
