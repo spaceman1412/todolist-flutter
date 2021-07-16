@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import '../widgets/text_section.dart';
+import '../widgets/data.dart';
 
 class AddNoteScreen extends StatelessWidget {
-  const AddNoteScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,16 +21,14 @@ class AddNoteScreen extends StatelessWidget {
 }
 
 class textBox extends StatelessWidget {
-  const textBox({
-    Key? key,
-  }) : super(key: key);
+  int initialID = 0;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
         child: TextField(
       decoration: InputDecoration(
-          hintText: "Insert your message",
+          hintText: "Insert your note",
           filled: true,
           fillColor: Colors.transparent,
           focusedBorder: OutlineInputBorder(
@@ -42,6 +39,11 @@ class textBox extends StatelessWidget {
       autofocus: true,
       keyboardType: TextInputType.multiline,
       maxLines: null,
+      textInputAction: TextInputAction.done,
+      onSubmitted: (String value) {
+        Data.getNote(initialID, value);
+        initialID++;
+      },
     ));
   }
 }
@@ -67,12 +69,17 @@ class btnEdit extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.fromLTRB(314, 55, 16, 0),
-          child: Text(
-            'Done',
-            style: TextStyle(
-              fontSize: 19,
-              color: Colors.blue,
-              fontWeight: FontWeight.bold,
+          child: GestureDetector(
+            onTap: () {
+              print('Tapped');
+            },
+            child: Text(
+              'Done',
+              style: TextStyle(
+                fontSize: 19,
+                color: Colors.blue,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
