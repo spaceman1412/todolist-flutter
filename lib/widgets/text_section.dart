@@ -3,6 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TextSection extends StatelessWidget {
+  final _value;
+  final _id;
+  TextSection(this._id, this._value);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,7 +17,7 @@ class TextSection extends StatelessWidget {
             children: [
               CustomCheckBox(),
               Text(
-                'This is a text',
+                '$_value',
                 style: TextStyle(fontSize: 20),
               ),
             ],

@@ -5,5 +5,6 @@ class Data {
 
   static void getNote(int noteId, String note) {
     data = [...data, Note(noteId, note)];
+    print(data.toString());
   }
 }

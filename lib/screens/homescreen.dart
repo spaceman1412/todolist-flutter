@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/text_section.dart';
+import '../widgets/data.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -11,10 +12,9 @@ class HomeScreen extends StatelessWidget {
         body: Stack(
           children: [
             Column(
-              children: [
-                TextSection(),
-                TextSection(),
-              ],
+              children: Data.data
+                  .map((note) => TextSection(note.id, note.value))
+                  .toList(),
             ),
             customBtn(),
           ],
