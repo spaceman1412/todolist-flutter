@@ -25,7 +25,7 @@ class TextSection extends StatelessWidget {
           Divider(
             color: Colors.black,
             height: 15,
-            indent: 45,
+            indent: 25,
           )
         ]),
       ),
@@ -37,14 +37,17 @@ class CustomCheckBox extends StatelessWidget {
   bool isChecked = false;
   @override
   Widget build(BuildContext context) {
-    return Transform.scale(
-      scale: 1.3,
-      child: Checkbox(
-        value: isChecked,
-        onChanged: (bool? value) {
-          isChecked = value!;
-        },
-        shape: CircleBorder(),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Transform.scale(
+        scale: 1.5,
+        child: Checkbox(
+          value: isChecked,
+          onChanged: (bool? value) {
+            isChecked = value!;
+          },
+          shape: CircleBorder(),
+        ),
       ),
     );
   }
