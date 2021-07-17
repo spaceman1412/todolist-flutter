@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/screens/add_note.dart';
 import '../widgets/text_section.dart';
 import '../widgets/data.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String test = '';
+  void setStatefunc() {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +27,7 @@ class HomeScreen extends StatelessWidget {
                   .map((note) => TextSection(note.id, note.value))
                   .toList(),
             ),
-            customBtn(),
+            customBtn(context, setStatefunc),
           ],
         ));
   }
@@ -41,7 +52,7 @@ AppBar CustomAppBar() {
   );
 }
 
-Widget customBtn() {
+Widget customBtn(final context, void func()) {
   return Padding(
     padding: const EdgeInsets.fromLTRB(0, 0, 25, 55),
     child: Align(
@@ -49,7 +60,13 @@ Widget customBtn() {
       child: Transform.scale(
         scale: 2,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () async {
+            final value = await Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AddNoteScreen()),
+            );
+            func();
+          },
           child: Text(
             '+',
             style: TextStyle(

@@ -97,12 +97,7 @@ class btnEdit extends StatelessWidget {
                 print(value);
                 Data.getNote(initialID, value);
                 initialID++;
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HomeScreen(),
-                  ),
-                );
+                Navigator.pop(context);
               }
             },
             child: Text(
