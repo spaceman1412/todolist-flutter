@@ -7,4 +7,12 @@ class Data {
     data = [...data, Note(noteId, note)];
     print(data.toString());
   }
+
+  static void deleteNote(int noteId, String note) {
+    List<Note> filterList = data.where((note) {
+      return note.id != noteId;
+    }).toList();
+    data = filterList;
+    print(data.toString());
+  }
 }

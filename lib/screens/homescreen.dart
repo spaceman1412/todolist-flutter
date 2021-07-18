@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Column(
               children: Data.data
-                  .map((note) => TextSection(note.id, note.value))
+                  .map((note) => TextSection(note.id, note.value, setStatefunc))
                   .toList(),
             ),
             customBtn(context, setStatefunc),

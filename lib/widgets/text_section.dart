@@ -1,11 +1,20 @@
 import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
+import '../screens/homescreen.dart';
+import './data.dart';
 
 class TextSection extends StatelessWidget {
   final _value;
   final _id;
-  TextSection(this._id, this._value);
+  final Function func;
+
+  bool onHold = false;
+  TextSection(this._id, this._value, this.func);
+
+  void Delete(int noteId, String note) {
+    Data.deleteNote(noteId, note);
+    func();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +25,34 @@ class TextSection extends StatelessWidget {
           Row(
             children: [
               CustomCheckBox(),
-              Text(
-                '$_value',
-                style: TextStyle(fontSize: 20),
+              GestureDetector(
+                child: Text(
+                  '$_value',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onLongPress: () => {
+                  showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text('Delete?'),
+                      content: const Text('Do you want to delete?'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text('No'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Delete(_id, _value);
+
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Yes'),
+                        ),
+                      ],
+                    ),
+                  )
+                },
               ),
             ],
           ),
