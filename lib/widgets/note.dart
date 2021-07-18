@@ -1,6 +1,6 @@
 class Note {
   final int id;
-  final String value;
+  String value;
 
   String toString() {
     return 'Note:{id:${id}, value:${value}}';

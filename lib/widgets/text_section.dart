@@ -55,9 +55,12 @@ class TextSection extends StatelessWidget {
                 },
                 onTap: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AddNoteScreen(true, _value)));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          AddNoteScreen(true, _value, _id, func),
+                    ),
+                  );
                 },
               ),
             ],
