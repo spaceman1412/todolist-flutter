@@ -63,7 +63,7 @@ Widget customBtn(final context, void func()) {
           onPressed: () async {
             final value = await Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => AddNoteScreen()),
+              MaterialPageRoute(builder: (context) => AddNoteScreen(false, '')),
             );
             func();
           },

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../screens/homescreen.dart';
+import '../screens/add_note.dart';
 import './data.dart';
 
 class TextSection extends StatelessWidget {
@@ -44,7 +45,6 @@ class TextSection extends StatelessWidget {
                         TextButton(
                           onPressed: () {
                             Delete(_id, _value);
-
                             Navigator.pop(context);
                           },
                           child: const Text('Yes'),
@@ -52,6 +52,12 @@ class TextSection extends StatelessWidget {
                       ],
                     ),
                   )
+                },
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AddNoteScreen(true, _value)));
                 },
               ),
             ],

@@ -2,9 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../widgets/text_section.dart';
 import '../widgets/data.dart';
-import './homescreen.dart';
 
-class AddNoteScreen extends StatelessWidget {
+class AddNoteScreen extends StatefulWidget {
+  final bool _isEdit;
+  final _value;
+
+  AddNoteScreen(this._isEdit, this._value);
+
+  @override
+  _AddNoteScreenState createState() => _AddNoteScreenState(_isEdit, _value);
+}
+
+class _AddNoteScreenState extends State<AddNoteScreen> {
+  final bool _isEdit;
+  final _value;
+  _AddNoteScreenState(this._isEdit, this._value);
+  @override
+  void initState() {
+    _getThingsOnStartup().then((value) {
+      print('Async complete');
+      if (_isEdit) {
+        textBox.changetextEdit(_value);
+      } else {
+        textBox.changetextEdit('');
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,11 +45,20 @@ class AddNoteScreen extends StatelessWidget {
       ],
     ));
   }
+
+  Future _getThingsOnStartup() async {
+    await Future.delayed(Duration(seconds: 0));
+  }
 }
 
 class textBox extends StatelessWidget {
   static final _formKey = GlobalKey<FormState>();
   static TextEditingController valueController = new TextEditingController();
+
+  static void changetextEdit(String _valueChanged) {
+    valueController.text = _valueChanged;
+    print('Text changed: ${valueController.text}');
+  }
 
   static String getValue() {
     return valueController.text;
